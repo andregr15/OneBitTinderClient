@@ -16,6 +16,10 @@
 
             <input type="submit" class="button is-fullwidth is-success" value="Login">
           </form>
+
+          <div class="has-text-centered">
+            <router-link class="button is-text has-text-primary" to="/sign-up">Don't have an account? Sign Up</router-link>
+          </div>
         </div>
       </div>
     </div>
