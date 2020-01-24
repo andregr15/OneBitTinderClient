@@ -51,16 +51,23 @@
       ...mapState(
         'Match',
         [
-          'selectList',
+          'selectionList',
           'loading',
-          'currentSelection'
+          'currentSelection',
+          'likePerformed'
         ]
       )
     },
 
     watch: {
-      loading() {
-        this.setCurrentSelection(0)
+      loading(newValue) {
+        if(!newValue)
+          this.setCurrentSelection(0)
+      },
+
+      likePerformed(newValue) {
+        if(newValue) 
+          this.changeCurrentSelection()
       }
     },
 
@@ -71,11 +78,21 @@
           'loadSelectionList',
           'setCurrentSelection'
         ]
-      )
+      ),
+
+      changeCurrentSelection() {
+        let indexOfCurrent = this.selectionList.indexOf(this.currentSelection)
+        if(this.selectionList.length > (indexOfCurrent + 1 )) {
+          this.setCurrentSelection(indexOfCurrent + 1)
+        } else {
+          this.loadSelectionList()
+        }
+      }
     },
 
     mounted() {
-      this.loadSelectionList()
+      if(this.selectionList.length == 0)
+        this.loadSelectionList()
     }
   }
 </script>

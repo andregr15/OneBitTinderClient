@@ -9,5 +9,15 @@ export default {
     )
 
     return response.data
+  },
+
+  async like(userId, liked) {
+    let response = await axios.post(
+      `users/${userId}/like`,
+      { like: { liked: liked } },
+      { headers: store.getters['accountHeaders'] }
+    )
+
+    return response.data
   }
 }
