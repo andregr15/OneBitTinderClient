@@ -1,45 +1,53 @@
 <template>
   <div>
-    <div class="has-text-centered">
-      <img :src="user.default_photo_url">
-    </div>
-
-    <div class="columns is-mobile is-gapless">
-      <div class="column is-8">
-        <h5 class="is-size-4">
-          <strong>{{ user.name }}</strong>
-        </h5>
-        <h5 class="has-text-gray">
-          <strong>
-            <i class="fas fa-university"></i>
-          </strong>
-          {{ user.college }}
-        </h5>
+    <div>
+      <div class="info-button">
+        <button class="button is-pulled-left" @click="goToUserInfo()">
+          <i class="fas fa-info fa-xs"></i>
+        </button>
       </div>
 
-      <div class="column is-4 distance">
-        <h4 class="has-text-right is-size-6">
-          <strong class="has-text-danger">{{ user.distance }} Km </strong>
-          <i class="fas fa-map-marker-alt has-text-gray"></i>
-        </h4>
+      <div class="has-text-centered">
+        <img :src="user.default_photo_url">
       </div>
-    </div>
 
-    <footer class="footer">
-      <div class="columns is-mobile has-text-centered like-buttons">
-        <div class="column is-6">
-          <button class="button has-background-grey-light is-large" @click="like(false)">
-            <i class="fas fa-times has-text-white"></i>
-          </button>
+      <div class="columns is-mobile is-gapless">
+        <div class="column is-8">
+          <h5 class="is-size-4">
+            <strong>{{ user.name }}</strong>
+          </h5>
+          <h5 class="has-text-gray">
+            <strong>
+              <i class="fas fa-university"></i>
+            </strong>
+            {{ user.college }}
+          </h5>
         </div>
 
-        <div class="column is-6">
-          <button class="button has-background-danger is-large" @click="like(true)">
-            <i class="fas fa-heart has-text-white"></i>
-          </button>
+        <div class="column is-4 distance">
+          <h4 class="has-text-right is-size-6">
+            <strong class="has-text-danger">{{ user.distance }} Km </strong>
+            <i class="fas fa-map-marker-alt has-text-gray"></i>
+          </h4>
         </div>
       </div>
-    </footer>
+
+      <footer class="footer">
+        <div class="columns is-mobile has-text-centered like-buttons">
+          <div class="column is-6">
+            <button class="button has-background-grey-light is-large" @click="like(false)">
+              <i class="fas fa-times has-text-white"></i>
+            </button>
+          </div>
+
+          <div class="column is-6">
+            <button class="button has-background-danger is-large" @click="like(true)">
+              <i class="fas fa-heart has-text-white"></i>
+            </button>
+          </div>
+        </div>
+      </footer>
+    </div>
   </div>
 </template>
 
@@ -80,11 +88,26 @@
       width: 3.5rem;
     }
   }
+
+  div.info-button {
+    position: absolute;
+    z-index: 999999;
+    top: 0.5rem;
+    right: 0.5rem;
+
+    button {
+      border-radius: 9999px;
+      height: 1.6rem;
+      width: 1.7rem;
+      opacity: 0.8;
+    }
+  }
 </style>
 
 <script>
 
   import { mapState, mapActions } from 'vuex'
+  import router from '../router'
 
   export default {
     computed: {
@@ -94,6 +117,12 @@
     },
 
     methods: {
+      goToUserInfo() {
+        router.push({
+          name: "user",
+          params: { user: this.user }
+        })
+      },
       ...mapActions('Match', ['like'])
     }
   }
