@@ -61,7 +61,7 @@
         photoToUpload: null,
         swiperOptions: {
           navigation: {
-            nexEl: '.swiper-button-next',
+            nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
           }
         }
