@@ -6,6 +6,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import SignUp from '../views/SignUp.vue'
 import UserShow from '../views/UserShow.vue'
+import UserEdit from '../views/UserEdit.vue'
 import ChatList from '../views/ChatList.vue'
 
 Vue.use(Router)
@@ -39,6 +40,11 @@ const router = new Router({
       name: 'user',
       props: true,
       component: UserShow,
+    },
+    {
+      path: '/profile/edit',
+      name: 'user_edit',
+      component: UserEdit,
     },
     {
       path: '/chats',
