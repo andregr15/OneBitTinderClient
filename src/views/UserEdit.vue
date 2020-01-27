@@ -1,5 +1,6 @@
 <template>
   <div>
+    <UserPhoto />
     <div class="columns is-mobile is-multiline">
       <div class="column is-12">
         <form @submit.prevent="update()">
@@ -26,7 +27,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   div.columns {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -42,8 +43,13 @@
   import { mapState } from 'vuex'
   import store from '../store'
   import router from '../router'
+  import UserPhoto from '../components/UserPhoto'
 
   export default {
+    components: {
+      UserPhoto,
+    },
+
     computed: {
       ...mapState({
         account: state => state.Account.account

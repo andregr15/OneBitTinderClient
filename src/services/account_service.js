@@ -27,8 +27,8 @@ export default {
   },
 
   async update(id, name, college, company, description) {
-    let headers = store.getters['accountHeaders']
-    headers['Content-Type'] = 'application/json'
+    let headers = { ...store.getters['accountHeaders'], ContentType: 'application/json' }
+
     let response = await axios.patch(
       `users/${id}`,
       {
