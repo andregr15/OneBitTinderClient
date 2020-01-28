@@ -61,7 +61,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/sign-up']
+  const publicPages = ['/login', '/sign-up', '/block-geolocation']
   const authRequired = !publicPages.includes(to.path)
   const isGeolocationEnabled = store.getters['isGeolocationEnabled']
 

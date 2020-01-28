@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import Buefy from 'buefy'
+import ActionCableVue from 'actioncable-vue'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
@@ -10,8 +11,16 @@ import './registerServiceWorker'
 import '@fortawesome/fontawesome-free/css/all.css'
 
 Vue.use(Buefy)
+Vue.use(
+  ActionCableVue,
+  {
+    debug: true,
+    debugLevel: 'error',
+    connectionUrl: `ws://${process.env.VUE_APP_WS}/cable`
+  }
+)
 
-axios.defaults.baseURL = 'http://localhost:3000/api/v1'
+axios.defaults.baseURL = `${process.env.VUE_APP_API}/api/v1`
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 Vue.config.productionTip = false

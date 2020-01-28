@@ -49,9 +49,10 @@ export default {
     let response = await axios.patch(
       `users/${id}`,
       { user: {
-        latitude: lat,
-        longitude: lon
-      }},
+          latitude: lat,
+          longitude: lon,
+        }
+      },
       { headers: store.getters['accountHeaders'] }
     )
 

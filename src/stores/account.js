@@ -33,18 +33,30 @@ export default {
     },
 
     setGeolocation(state) {
-      state.geolocationEnabled = true
+      navigator.geolocation.getCurrentPosition(
+        data => {
+          state.coordinates.lat = data.coords.latitude
+          state.coordinates.lon = data.coords.longitude
+          state.geolocationEnabled = true
+          AccountService.setGeolocation(
+            state.account.id,
+            data.coords.latitude,
+            data.coords.longitude
+          )
+        }
+      )
+      
     }
   },
 
   actions: {
-    login(context, { email, password }) {
+    login({ commit }, { email, password }) {
       AccountService.login(email, password)
-        .then(user => context.commit('performLogin', user))
+        .then(user => commit('performLogin', user))
     },
 
-    loadLocalAccount(context) {
-      context.commit('loadLocalStorageAccount')
+    loadLocalAccount({ commit }) {
+      commit('loadLocalStorageAccount')
     },
 
     updateAccount({ commit, state }, { name, college, company, description }) {
@@ -54,17 +66,8 @@ export default {
         )
     },
 
-    loadGeolocation({ commit, state }) {
-      navigator.geolocation.getCurrentPosition(
-        data => {
-          commit('setGeolocation')
-          AccountService.setGeolocation(
-            state.account.id,
-            data.coords.latitude,
-            data.coords.longitude
-          )
-        }
-      )
+    loadGeolocation({ commit }) {
+      commit('setGeolocation')
     }
   },
 
@@ -78,6 +81,10 @@ export default {
         'X-User-Email': state.account.email,
         'X-User-Token': state.account.authentication_token
       }
+    },
+
+    accountToken(state) {
+      return state.account.authentication_token
     },
 
     isGeolocationEnabled(state) {
