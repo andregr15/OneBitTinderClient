@@ -3,7 +3,7 @@
     <div class="column is-full">
       <h1 class="subtitle has-text-centered">Chats</h1>
 
-      <swiper :options="swiperOptions" v-if="chats.length > 0">
+      <swiper :options="swiperOptions" v-if="chats.length > 0" class="has-text-centered">
         <swiperSlide v-for="chat in chats" :key="chat.id">
           <img :src="chat.matchee_photo_url" @click="openMenu(chat, 'chats')">
         </swiperSlide>
@@ -20,7 +20,7 @@
     <div class="column is-full">
       <h1 class="subtitle has-text-centered">Matches</h1>
 
-      <swiper :options="swiperOptions" v-if="matches.length > 0">
+      <swiper :options="swiperOptions" v-if="matches.length > 0" class="has-text-centered">
         <swiperSlide v-for="match in matches" :key="match.id">
           <img :src="match.matchee_photo_url" @click="openMenu(match, 'matches')">
         </swiperSlide>
