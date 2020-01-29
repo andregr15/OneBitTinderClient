@@ -10,17 +10,21 @@ export default {
     return response.data
   },
 
-  async signUp(name, email, password, passwordConfirmation) {
+  async signUp(name, email, password, passwordConfirmation, photo) {
+    let formData = new FormData()    
+    formData.append('user[name]', name)
+    formData.append('user[email]', email)
+    formData.append('user[password]', password)
+    formData.append('user[password_confirmation]', passwordConfirmation)
+
+    console.log(photo)
+    if(photo)
+      formData.append('user[file]', photo)
+
     let response = await axios.post(
       'users',
-      { 
-        user: {
-          name: name,
-          email: email,
-          password: password, 
-          password_confirmation: passwordConfirmation
-        }
-      }
+      formData,
+      { headers: { ContentType: 'multipart/form-data' }}
     )
 
     return response

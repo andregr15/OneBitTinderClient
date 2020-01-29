@@ -37,17 +37,17 @@ export default {
       localStorage.setItem('account', JSON.stringify(user))
     },
 
-    setGeolocation(state) {
-      navigator.geolocation.getCurrentPosition(
+    async setGeolocation(state) {
+      await navigator.geolocation.getCurrentPosition(
         data => {
-          state.coordinates.lat = data.coords.latitude
-          state.coordinates.lon = data.coords.longitude
           state.geolocationEnabled = true
           AccountService.setGeolocation(
             state.account.id,
             data.coords.latitude,
             data.coords.longitude
           )
+          state.coordinates.lat = data.coords.latitude
+          state.coordinates.lon = data.coords.longitude
         }
       )
     }

@@ -6,6 +6,17 @@
         <div class="card">
           <div class="card-content">
             <form @submit.prevent="signUp(name, email, password, passwordConfirmation)">
+              
+              <img :src="photoLocalUrl">
+              <b-field class="file is-centered">
+                <b-upload v-model="photo">
+                  <a class="button is-primary">
+                    <b-icon icon="camera" pack="fas" size="is-mall"></b-icon>
+                    <span>Select photo</span>
+                  </a>
+                </b-upload>
+              </b-field>
+
               <b-field label="Name">
                 <b-input v-model="name" type="text"></b-input>
               </b-field>
@@ -59,13 +70,21 @@
           email: [],
           password: [],
           passwordConfirmation: [],
-        }
+        },
+        photo: {},
+        photoLocalUrl: ''
+      }
+    },
+
+    watch: {
+      photo(newValue) {
+        this.photoLocalUrl = URL.createObjectURL(newValue)
       }
     },
 
     methods: {
       signUp(name, email, password, passwordConfirmation) {
-        AccountService.signUp(name, email, password, passwordConfirmation)
+        AccountService.signUp(name, email, password, passwordConfirmation, this.photoLocalUrl == '' ? null : this.photo)
           .then(() => {
             router.push('/login')
             store.dispatch('Notification/alert', { type: 'success', message: 'Registred with success' }
