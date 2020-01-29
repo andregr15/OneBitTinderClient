@@ -1,11 +1,14 @@
 <template>
   <div>
     <div>
-      <swiper class="has-text-centered">
+      <swiper class="has-text-centered" v-if="currentUser.photos && currentUser.photos.length > 0">
         <swiperSlide v-for="photo in currentUser.photos" :key="photo.url">
           <img :src="photo.url">
         </swiperSlide>
       </swiper>
+      <div class="has-text-centered" v-else>
+        <i class="fas fa-user default-photo"></i>
+      </div>
 
       <div class="columns is-mobile is-gapless is-centered action-buttons" v-if="isLoggedUser">
         <div class="column is-12">
@@ -33,14 +36,14 @@
             <strong>
               <i class="fas fa-building"></i>
             </strong>
-            {{ currentUser.company }}
+            {{ currentUser.company ? currentUser.company : 'Not provided yet' }}
           </h5>
 
           <h5 class="is-size-5 has-text-grey">
             <strong>
               <i class="fas fa-university"></i>
             </strong>
-            {{ currentUser.college }}
+            {{ currentUser.college ? currentUser.college : 'Not provided yet' }}
           </h5>
         </div>
 
@@ -104,6 +107,11 @@
 
   .sign-out {
     margin-top: 3rem;
+  }
+
+  .default-photo {
+    zoom: 10.0;
+    margin-top: 2px;
   }
 </style>
 
