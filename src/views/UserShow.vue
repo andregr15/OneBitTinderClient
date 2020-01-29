@@ -57,6 +57,13 @@
           </h5>
         </div>
 
+        <div class="column is-8 is-offset-2 has-text-centered" v-if="isLoggedUser">
+          <b-button type="is-primary" class="is-fullwidth button sign-out" @click="performSignOut()">
+            Sign Out
+            <i class="fas fa-sign-out-alt"></i>
+          </b-button>
+        </div>
+
       </div>
     </div>
   </div>
@@ -94,13 +101,17 @@
   h5.description {
     margin-top: 2em;
   }
+
+  .sign-out {
+    margin-top: 3rem;
+  }
 </style>
 
 <script>
 
   import 'swiper/dist/css/swiper.css'
   import { swiper, swiperSlide } from 'vue-awesome-swiper'
-  import { mapState } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
   import router from '../router'
   import UserService from '../services/user_service'
 
@@ -144,6 +155,7 @@
     },
 
     methods: {
+      ...mapActions(['signOut']),
       loadLoggedUser() {
         UserService.load(this.account.id)
           .then(
@@ -152,6 +164,11 @@
               this.isLoggedUser = true
             }
           )
+      },
+
+      performSignOut() {
+        this.signOut()
+        router.push('/login')
       },
 
       backToPreviousPage() {

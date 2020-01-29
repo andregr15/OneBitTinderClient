@@ -16,6 +16,11 @@ export default {
       localStorage.setItem('account', JSON.stringify(user))
     },
 
+    performSignOut(state) {
+      state.account = ''
+      localStorage.removeItem('account')
+    },
+
     loadLocalStorageAccount(state) {
       let account = localStorage.getItem('account')
       if(account) {
@@ -45,7 +50,6 @@ export default {
           )
         }
       )
-      
     }
   },
 
@@ -69,6 +73,10 @@ export default {
 
     loadGeolocation({ commit }) {
       commit('setGeolocation')
+    },
+
+    signOut({ commit }) {
+      commit('performSignOut')
     }
   },
 
