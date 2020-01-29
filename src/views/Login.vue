@@ -5,7 +5,7 @@
 
       <div class="card">
         <div class="card-content">
-          <form @submit.prevent="login({email, password})">
+          <form @submit.prevent="performLogin({email, password})">
             <b-field label="Email">
               <b-input v-model="email" type="email"></b-input>
             </b-field>
@@ -48,7 +48,7 @@
     computed: {
       loggedIn() {
         return store.getters['isLoggedIn']
-      }
+      },
     },
     
     created() {
@@ -58,16 +58,28 @@
     watch: {
       loggedIn(newValue) {
         this.checkLogin(newValue)
-      }
+      },
     },
 
     methods: {
       checkLogin(loggedIn) {
-        if(loggedIn) [
+        if(loggedIn) {
           router.push("/")
-        ]
+        }
       },
-      ...mapActions(['login'])
+
+      async performLogin(user) {
+        this.resetAlert()
+
+        let response = await this.login(user)
+
+        if(response) {
+          this.alert({ type: 'danger', message: 'E-mail not registered or invalid password' })
+        }
+      },
+
+      ...mapActions(['login']),
+      ...mapActions('Notification', ['alert', 'resetAlert'])
     }
   }
 </script>

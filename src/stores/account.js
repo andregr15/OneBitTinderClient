@@ -51,8 +51,9 @@ export default {
 
   actions: {
     login({ commit }, { email, password }) {
-      AccountService.login(email, password)
+      return AccountService.login(email, password)
         .then(user => commit('performLogin', user))
+        .catch(error => error)
     },
 
     loadLocalAccount({ commit }) {

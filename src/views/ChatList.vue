@@ -1,5 +1,5 @@
 <template>
-  <div class="columns">
+  <div class="columns is-multiline">
     <div class="column is-full">
       <h1 class="subtitle has-text-centered">Chats</h1>
 
